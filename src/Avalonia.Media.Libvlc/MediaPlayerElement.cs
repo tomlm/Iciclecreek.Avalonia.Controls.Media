@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
+using Avalonia.Data;
 using Avalonia.Interactivity;
 using LibVLCSharp.Shared;
 
@@ -8,8 +9,15 @@ namespace Avalonia.Media.Libvlc
 {
     public partial class MediaPlayerElement : UserControl
     {
-        public static readonly FuncTemplate<Control?> DefaultControlsTemplate = new(() => new MediaPlayerControls());
-        
+        public static readonly FuncTemplate<Control?> DefaultControlsTemplate = new(() =>
+        {
+            var controls = new MediaPlayerControls()
+            {
+                [!MediaPlayerControls.MediaPlayerProperty] = new Binding("")
+            };
+            return controls;
+        });
+
         public static readonly DirectProperty<MediaPlayerElement, string> SourceProperty = AvaloniaProperty.RegisterDirect<MediaPlayerElement, string>(nameof(Source), o => o.Source, (o, v) => o.Source = v);
 
         public static readonly StyledProperty<ITemplate<Control?>> ControlsTemplateProperty =
@@ -26,12 +34,13 @@ namespace Avalonia.Media.Libvlc
 
             _videoView = new VideoView()
             {
-                DataContext = this,
                 Content = playbackControls,
             };
+            
+            playbackControls.DataContext = _videoView.MediaPlayer;
 
-            playbackControls.DataContext = _videoView;
             this.Content = _videoView;
+
 
             // Do later
             // this.VideoView.Bind(VideoView.SourceProperty, )

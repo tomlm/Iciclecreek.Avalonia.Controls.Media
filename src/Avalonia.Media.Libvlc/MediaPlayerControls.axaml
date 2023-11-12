@@ -11,16 +11,22 @@
   </Design.DataContext>
 
   <Panel HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="Yellow">
-    <Grid  ColumnDefinitions="Auto,Auto,Auto,Auto" Margin="4">
-      <!--<Button Grid.Column="0" Click="OnPlay" Margin="5">Play</Button>
-      <Button Grid.Column="1" Click="OnStop" Margin="5" >Stop</Button>-->
-      <Button Classes="PlayPause" Grid.Column="0" Command="{Binding Play}" Margin="5">
-        <ic:SymbolIcon Symbol="VideoPlayPause" IsFilled="true" FontSize="30"/>
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <Button Classes="PlayButton" Click="OnPlay" Margin="5">
+        <ic:SymbolIcon Symbol="Play" IsFilled="{Binding IsPlaying}" FontSize="20"/>
       </Button>
-      <Button Classes="Mute" Grid.Column="1" Command="{Binding ToggleMute}" Margin="5" >
-        <ic:SymbolIcon Symbol="SpeakerMute" IsFilled="true" FontSize="30"/>
+      <Button Classes="PauseButton" Click="OnPause" Margin="5">
+        <ic:SymbolIcon Symbol="Pause" IsFilled="{Binding !IsPlaying}" FontSize="20"/>
       </Button>
-      <TextBlock Classes="Url" Grid.Column="2" VerticalAlignment="Center" Text="{Binding Source}"/>
-    </Grid>
+      <Button Classes="StopButton" Click="OnStop" Margin="5">
+        <ic:SymbolIcon Symbol="Stop" IsFilled="{Binding !IsPlaying}" FontSize="20"/>
+      </Button>
+      <Button Classes="MuteButton" Click="OnMute" Margin="5" >
+        <ic:SymbolIcon Symbol="SpeakerMute" IsFilled="true" FontSize="20"/>
+      </Button>
+      <Slider Classes="Volume" Minimum="0" Maximum="100"
+              Width="100"
+              Value="{Binding Volume}" Margin="5" VerticalAlignment="Center"/>
+    </StackPanel>
   </Panel>
 </UserControl>
