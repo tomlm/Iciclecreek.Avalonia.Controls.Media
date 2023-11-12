@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vlc="using:Avalonia.Media.Libvlc"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Avalonia.Media.Libvlc.MediaPlayerControls">
+  <Design.DataContext>
+    <vlc:MediaPlayerElementViewModel />
+  </Design.DataContext>
+
+  <Panel HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="Yellow">
+    <Grid  ColumnDefinitions="Auto,Auto,Auto">
+      <Button Grid.Column="0" Click="OnPlay" Margin="5">Play</Button>
+      <Button Grid.Column="1" Click="OnStop" Margin="5" >Stop</Button>
+      <!--<Button Grid.Column="0" Command="{Binding Play}" Margin="5">Play</Button>
+      <Button Grid.Column="1" Command="{Binding OnStop}" Margin="5" >Stop</Button>-->
+      <TextBlock Grid.Column="2" VerticalAlignment="Center" Text="{Binding Source}"/>
+    </Grid>
+  </Panel>
+</UserControl>
