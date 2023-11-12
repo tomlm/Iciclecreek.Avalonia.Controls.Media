@@ -6,7 +6,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Avalonia.Media.Libvlc.MediaPlayerControls">
   <Design.DataContext>
-    <vlc:MediaPlayerElementViewModel />
+    <vlc:VideoView />
   </Design.DataContext>
 
   <Panel HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="Yellow">

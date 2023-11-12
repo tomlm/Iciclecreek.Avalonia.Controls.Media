@@ -23,13 +23,14 @@ namespace Avalonia.Media.Libvlc
         public MediaPlayerElement()
         {
             var playbackControls = this.ControlsTemplate.Build();
-            playbackControls.DataContext = this;
 
             _videoView = new VideoView()
             {
                 DataContext = this,
                 Content = playbackControls,
             };
+
+            playbackControls.DataContext = _videoView;
             this.Content = _videoView;
 
             // Do later

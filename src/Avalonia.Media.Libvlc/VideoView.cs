@@ -99,18 +99,18 @@ namespace Avalonia.Media.Libvlc
         public object Content
         {
             get => GetValue(ContentProperty);
-            set => SetValue(ContentProperty, value);
+            set
+            {
+                SetValue(ContentProperty, value);
+                if (value is Control control)
+                    control.DataContext = this;
+            }
         }
 
         public IBrush Background
         {
             get => GetValue(BackgroundProperty);
             set => SetValue(BackgroundProperty, value);
-        }
-
-        public void SetContent(object o)
-        {
-            Content = o;
         }
 
         private void InitializeNativeOverlay()
@@ -179,6 +179,54 @@ namespace Avalonia.Media.Libvlc
 
         }
 
+        // COMMANDS
+        #region COMMANDS
+        public void Play()
+        {
+            this.MediaPlayer.Play();
+        }
+        public bool CanPlay() => !this.MediaPlayer.IsPlaying && this.MediaPlayer.Media != null;
+
+        public void Stop()
+        {
+            this.MediaPlayer.Stop();
+        }
+
+        public bool CanStop() => this.MediaPlayer.Media != null && this.MediaPlayer.IsPlaying;
+
+
+        public void Pause()
+        {
+            this.MediaPlayer.Pause();
+        }
+
+        public bool CanPause() => this.MediaPlayer.Media != null && this.MediaPlayer.IsPlaying;
+
+        public void Mute()
+        {
+            this.MediaPlayer.Mute = true; ;
+        }
+
+        public bool CanMute() => this.MediaPlayer.Media != null && this.MediaPlayer.IsPlaying;
+
+        public void Unmute()
+        {
+            this.MediaPlayer.Mute = false;
+        }
+
+        public bool CanUnmute() => this.CanMute();
+
+        public void ToggleMute()
+        {
+            this.MediaPlayer.ToggleMute();
+        }
+
+        public void Fullscreen(string trueFalse)
+        {
+            if (bool.TryParse(trueFalse, out var val))
+                this.MediaPlayer.Fullscreen = val;
+        }
+        #endregion
 
         /// <inheritdoc />
         protected override IPlatformHandle CreateNativeControlCore(IPlatformHandle parent)

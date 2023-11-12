@@ -12,7 +12,7 @@ namespace Avalonia.Media.Libvlc
             InitializeComponent();
         }
 
-        public MediaPlayer MediaPlayer => (DataContext as MediaPlayerElement)?.MediaPlayer;
+        public MediaPlayer MediaPlayer => (DataContext as VideoView)?.MediaPlayer;
 
         public void OnPlay(object sender, RoutedEventArgs e)
         {
