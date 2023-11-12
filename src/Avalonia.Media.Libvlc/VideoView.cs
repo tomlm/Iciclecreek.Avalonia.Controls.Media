@@ -14,6 +14,7 @@ using System.Reactive.Subjects;
 using System.Reactive.Linq;
 using System.Reactive.Disposables;
 using vlc = LibVLCSharp.Shared;
+using FluentIcons.Avalonia;
 
 namespace Avalonia.Media.Libvlc
 {
@@ -185,22 +186,30 @@ namespace Avalonia.Media.Libvlc
         {
             this.MediaPlayer.Play();
         }
-        public bool CanPlay() => !this.MediaPlayer.IsPlaying && this.MediaPlayer.Media != null;
+        
+        //public bool CanPlay() => !this.MediaPlayer.IsPlaying && this.MediaPlayer.Media != null;
 
         public void Stop()
         {
             this.MediaPlayer.Stop();
         }
 
-        public bool CanStop() => this.MediaPlayer.Media != null && this.MediaPlayer.IsPlaying;
+        //public bool CanStop() => this.MediaPlayer.Media != null && this.MediaPlayer.IsPlaying;
 
+        public void PlayPause()
+        {
+            if (this.MediaPlayer.IsPlaying)
+                this.MediaPlayer.Pause();
+            else 
+                this.MediaPlayer.Play();
+        }
 
         public void Pause()
         {
             this.MediaPlayer.Pause();
         }
 
-        public bool CanPause() => this.MediaPlayer.Media != null && this.MediaPlayer.IsPlaying;
+        //public bool CanPause() => this.MediaPlayer.Media != null && this.MediaPlayer.IsPlaying;
 
         public void Mute()
         {
@@ -214,7 +223,7 @@ namespace Avalonia.Media.Libvlc
             this.MediaPlayer.Mute = false;
         }
 
-        public bool CanUnmute() => this.CanMute();
+        //public bool CanUnmute() => this.CanMute();
 
         public void ToggleMute()
         {
