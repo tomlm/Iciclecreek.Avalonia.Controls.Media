@@ -116,11 +116,16 @@ namespace Avalonia.Media.Libvlc
 
             if (_floatingContent == null && Content != null)
             {
+                if (Content is Control content)
+                {
+                    content.DataContext = this;
+                }
+
                 var rect = this.Bounds;
 
                 _floatingContent = new Window()
                 {
-                    DataContext = this.MediaPlayer,
+                    DataContext = this,
                     SystemDecorations = SystemDecorations.None,
 
                     Background = Brushes.Transparent,

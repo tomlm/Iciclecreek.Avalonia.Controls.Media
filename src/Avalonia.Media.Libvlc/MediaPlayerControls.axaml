@@ -6,27 +6,24 @@
              xmlns:ic="using:FluentIcons.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Avalonia.Media.Libvlc.MediaPlayerControls">
-  <Design.DataContext>
-    <vlc:VideoView />
-  </Design.DataContext>
+  
 
-  <Panel HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="Yellow">
+  <Panel HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="Yellow"  >
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-      <Button Classes="PlayButton" Click="OnPlay" Margin="5">
-        <ic:SymbolIcon Symbol="Play" IsFilled="{Binding IsPlaying}" FontSize="20"/>
+      <Button Classes="PlayButton" Click="OnPlay" Margin="5" IsEnabled="{Binding MediaPlayer.IsPlaying}" >
+        <ic:SymbolIcon Symbol="Play" FontSize="20" IsFilled="{Binding !MediaPlayer.IsPlaying}"/>
       </Button>
-      <Button Classes="PauseButton" Click="OnPause" Margin="5">
-        <ic:SymbolIcon Symbol="Pause" IsFilled="{Binding !IsPlaying}" FontSize="20"/>
+      <Button Classes="PauseButton" Click="OnPause" Margin="5" IsEnabled="{Binding MediaPlayer.IsPlaying}" >
+        <ic:SymbolIcon Symbol="Pause" FontSize="20" IsFilled="{Binding MediaPlayer.IsPlaying}"/>
       </Button>
-      <Button Classes="StopButton" Click="OnStop" Margin="5">
-        <ic:SymbolIcon Symbol="Stop" IsFilled="{Binding !IsPlaying}" FontSize="20"/>
+      <Button Classes="StopButton" Click="OnStop" Margin="5" IsEnabled="{Binding MediaPlayer.IsPlaying}" >
+        <ic:SymbolIcon Symbol="Stop" FontSize="20" IsFilled="{Binding MediaPlayer.IsPlaying}"/>
       </Button>
       <Button Classes="MuteButton" Click="OnMute" Margin="5" >
-        <ic:SymbolIcon Symbol="SpeakerMute" IsFilled="true" FontSize="20"/>
+        <ic:SymbolIcon Symbol="SpeakerMute" IsFilled="{Binding MediaPlayer.Mute}" FontSize="20"/>
       </Button>
-      <Slider Classes="Volume" Minimum="0" Maximum="100"
-              Width="100"
-              Value="{Binding Volume}" Margin="5" VerticalAlignment="Center"/>
+      <!--<Slider Classes="Volume" Minimum="0" Maximum="100" Margin="5" VerticalAlignment="Center"
+              Width="100" Value="{Binding MediaPlayer.Volume}" />-->
     </StackPanel>
   </Panel>
 </UserControl>

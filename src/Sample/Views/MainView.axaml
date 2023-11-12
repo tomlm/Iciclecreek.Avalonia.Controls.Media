@@ -13,13 +13,19 @@
     <vm:MainViewModel />
   </Design.DataContext>
 
-  <Grid RowDefinitions="Auto, *, *">
+  <Grid RowDefinitions="Auto, *, *, Auto">
 
     <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-    <vid:MediaPlayerElement Grid.Row="1" Source="{Binding Source}" Background="Green"/>
+    <vid:VideoView Grid.Row="1" Source="{Binding Source}" Background="Green">
+      <vid:MediaPlayerControls />
+    </vid:VideoView>
 
-    <vid:MediaPlayerElement Grid.Row="2" Source="{Binding Source}" Background="Blue"/>
+    <Grid Grid.Row="2" RowDefinitions="*, Auto" >
+      <vid:VideoView Name="Player2" Source="{Binding Source}" Background="Blue"/>
+      <vid:MediaPlayerControls Grid.Row="1" DataContext="{Binding #Player2}" />
+    </Grid>
   </Grid>
+
 
 </UserControl>

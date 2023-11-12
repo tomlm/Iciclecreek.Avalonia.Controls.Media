@@ -1,23 +1,22 @@
 using Avalonia.Controls;
+using Avalonia.Data;
 using Avalonia.Interactivity;
 using FluentIcons.Avalonia;
 using LibVLCSharp.Shared;
+using ReactiveUI;
 
 namespace Avalonia.Media.Libvlc
 {
 
     public partial class MediaPlayerControls : UserControl
     {
-        public static readonly DirectProperty<MediaPlayerControls, MediaPlayer> MediaPlayerProperty = AvaloniaProperty.RegisterDirect<MediaPlayerControls, MediaPlayer>(nameof(MediaPlayerControls.MediaPlayer), o => o.MediaPlayer, (o, v) => o.MediaPlayer = v);
-
-        private MediaPlayer _mediaPlayer;
-
         public MediaPlayerControls()
         {
+            // FluentIcons.Common.Symbol
             InitializeComponent();
         }
 
-        public MediaPlayer MediaPlayer { get => _mediaPlayer; set => SetAndRaise(MediaPlayerProperty, ref _mediaPlayer, value); }
+        public MediaPlayer MediaPlayer { get => (DataContext as VideoView)?.MediaPlayer; }         // set => SetAndRaise(MediaPlayerProperty, ref _mediaPlayer, value); }
 
         public void OnPlay(object sender, RoutedEventArgs e)
         {
