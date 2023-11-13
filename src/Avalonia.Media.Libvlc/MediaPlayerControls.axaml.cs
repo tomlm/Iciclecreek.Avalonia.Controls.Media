@@ -1,9 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Data;
-using Avalonia.Interactivity;
-using FluentIcons.Avalonia;
 using LibVLCSharp.Shared;
-using ReactiveUI;
 
 namespace Avalonia.Media.Libvlc
 {
@@ -35,35 +32,6 @@ namespace Avalonia.Media.Libvlc
             }
         }
 
-        public void OnPlay(object sender, RoutedEventArgs e)
-        {
-            if (MediaPlayer != null)
-            {
-                MediaPlayer.Play();
-            }
-        }
-
-        public void OnPause(object sender, RoutedEventArgs e)
-        {
-            if (MediaPlayer != null)
-            {
-                MediaPlayer.Pause();
-            }
-        }
-
-        public void OnMute(object sender, RoutedEventArgs e)
-        {
-            if (MediaPlayer != null)
-            {
-                MediaPlayer.ToggleMute();
-            }
-        }
-
-        public void OnStop(object sender, RoutedEventArgs e)
-        {
-            MediaPlayer?.Stop();
-        }
-
-
+        public IBrush Background { get => this.Controls.Background; set => this.Controls.Background = value; }
     }
 }

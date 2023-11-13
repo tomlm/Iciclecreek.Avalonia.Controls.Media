@@ -23,6 +23,7 @@ namespace Avalonia.Media.Libvlc
                 _mediaPlayer.Playing += (sender, e) => this.RaisePropertyChanged(nameof(IsPlaying));
                 _mediaPlayer.VolumeChanged += (sender, e) => this.RaisePropertyChanged(nameof(Volume));
                 _mediaPlayer.TimeChanged += (sender, e) => this.RaisePropertyChanged(nameof(Time));
+                _mediaPlayer.LengthChanged += (sender, e) => this.RaisePropertyChanged(nameof(Length));
                 _mediaPlayer.Muted += (sender, e) => this.RaisePropertyChanged(nameof(IsMuted));
                 _mediaPlayer.Unmuted += (sender, e) => this.RaisePropertyChanged(nameof(IsMuted));
             }
@@ -78,7 +79,7 @@ namespace Avalonia.Media.Libvlc
         public long Time
         {
             get => _mediaPlayer.Time;
-            set {  _mediaPlayer.Time = value; this.RaisePropertyChanged(nameof(Time)); }    
+            set {  _mediaPlayer.Time = value; }    
         }
 
         public long Length => _mediaPlayer.Length;
