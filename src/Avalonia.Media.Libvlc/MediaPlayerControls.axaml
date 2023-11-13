@@ -9,30 +9,35 @@
   
 
   <Panel x:Name="Controls" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" >
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+    <Grid VerticalAlignment="Center" ColumnDefinitions="Auto, Auto, Auto, Auto, 100, *">
       <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
          to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vlc:MediaPlayerViewModel />
       </Design.DataContext>
 
-      <Button Classes="PlayButton" Command="{Binding Play}" Margin="5" IsEnabled="{Binding !IsPlaying}"  >
+      <Button Classes="PlayButton" Grid.Column="0" Command="{Binding Play}" Margin="5" IsEnabled="{Binding !IsPlaying}"  >
         <ic:SymbolIcon Symbol="Play" FontSize="20" IsFilled="{Binding !IsPlaying}"/>
       </Button>
-      <Button Classes="PauseButton" Command="{Binding Pause}" Margin="5"  IsEnabled="{Binding IsPlaying}" >
+      
+      <Button Classes="PauseButton" Grid.Column="1" Command="{Binding Pause}" Margin="5"  IsEnabled="{Binding IsPlaying}" >
         <ic:SymbolIcon Symbol="Pause" FontSize="20" IsFilled="{Binding IsPlaying}"/>
       </Button>
-      <Button Classes="StopButton" Command="{Binding Stop}" Margin="5"  IsEnabled="{Binding IsPlaying}">
+      
+      <Button Classes="StopButton" Grid.Column="2" Command="{Binding Stop}" Margin="5"  IsEnabled="{Binding IsPlaying}">
         <ic:SymbolIcon Symbol="Stop" FontSize="20" IsFilled="{Binding IsPlaying}"/>
       </Button>
-      <Button Classes="MuteButton" Command="{Binding ToggleMute}" Margin="5" IsEnabled="{Binding IsPlaying}">
-        <ic:SymbolIcon Symbol="SpeakerMute" FontSize="20" IsFilled="{Binding IsMuted}"/>
-      </Button>
-      <Slider Classes="Volume" Minimum="0" Maximum="100" Margin="5" VerticalAlignment="Center"
+      
+      <Slider Classes="Volume" Grid.Column="3" Minimum="0" Maximum="100" Margin="5" VerticalAlignment="Center"
               Width="100" Value="{Binding Volume}" />
       
-      <Slider Classes="Time" Minimum="0" Maximum="{Binding Length}" Margin="5" VerticalAlignment="Center" 
-              Width="200" Value="{Binding Time}" />
-    </StackPanel>
+      <Button Classes="MuteButton" Grid.Column="4" Command="{Binding ToggleMute}" Margin="5" IsEnabled="{Binding IsPlaying}">
+        <ic:SymbolIcon Symbol="SpeakerMute" FontSize="20" IsFilled="{Binding IsMuted}"/>
+      </Button>
+
+      <Slider Classes="Time" Grid.Column="5" Minimum="0" Maximum="{Binding Length}" Margin="5" VerticalAlignment="Center" 
+              SmallChange="1000" LargeChange="10000"
+              IsEnabled="{Binding IsPlaying}" Value="{Binding Time}" />
+    </Grid>
   </Panel>
 </UserControl>

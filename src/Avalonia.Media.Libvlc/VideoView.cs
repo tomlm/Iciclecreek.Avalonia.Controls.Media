@@ -132,7 +132,7 @@ namespace Avalonia.Media.Libvlc
                     //Topmost=true,
                     ZIndex = Int32.MaxValue,
 
-                    Opacity = 1,
+                    Opacity = 0,
 
                 };
 
