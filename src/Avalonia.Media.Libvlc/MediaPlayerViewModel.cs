@@ -26,18 +26,23 @@ namespace Avalonia.Media.Libvlc
                 _mediaPlayer.LengthChanged += (sender, e) => this.RaisePropertyChanged(nameof(Length));
                 _mediaPlayer.Muted += (sender, e) => this.RaisePropertyChanged(nameof(IsMuted));
                 _mediaPlayer.Unmuted += (sender, e) => this.RaisePropertyChanged(nameof(IsMuted));
+                _mediaPlayer.EndReached += (sender, e) => ThreadPool.QueueUserWorkItem( (x) =>
+                {
+                    _mediaPlayer.Stop();
+                    _mediaPlayer.Time = 0;
+                });
             }
         }
 
         public bool IsPlaying => _mediaPlayer.IsPlaying;
 
         public void Play() => _mediaPlayer.Play();
-        
+
         [DependsOn(nameof(IsPlaying))]
-        public bool CanPlay() => !_mediaPlayer.IsPlaying ;
+        public bool CanPlay() => !_mediaPlayer.IsPlaying;
 
         public void Stop() => _mediaPlayer.Stop();
-        
+
         [DependsOn(nameof(IsPlaying))]
         public bool CanStop() => _mediaPlayer.IsPlaying;
 
@@ -79,7 +84,7 @@ namespace Avalonia.Media.Libvlc
         public long Time
         {
             get => _mediaPlayer.Time;
-            set {  _mediaPlayer.Time = value; }    
+            set { _mediaPlayer.Time = value; }
         }
 
         public long Length => _mediaPlayer.Length;

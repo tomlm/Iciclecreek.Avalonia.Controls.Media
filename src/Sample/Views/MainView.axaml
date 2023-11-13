@@ -19,14 +19,15 @@
                Background="LightBlue"/>
 
     <vid:VideoView Grid.Row="1" Source="{Binding Source}" >
-      <vid:MediaPlayerControls Background="AntiqueWhite"/>
+      <vid:MediaPlayerControls Background="AntiqueWhite" Margin="0" Padding="0"/>
     </vid:VideoView>
 
     <TextBlock Grid.Row="2" Text="This video MediaPlayer Controls external to VideoView" HorizontalAlignment="Center" 
                VerticalAlignment="Center" Background="LightBlue"/>
     <Grid Grid.Row="3" RowDefinitions="*, Auto" >
       <vid:VideoView Name="Player2" Source="{Binding Source}" />
-      <vid:MediaPlayerControls Grid.Row="1" MediaPlayer="{Binding #Player2.MediaPlayer}" Background="AntiqueWhite" />
+      <vid:MediaPlayerControls Grid.Row="1" MediaPlayer="{Binding #Player2.MediaPlayer}" Background="AntiqueWhite"
+                               Margin="0" Padding="0"/>
     </Grid>
   </Grid>
 
