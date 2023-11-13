@@ -26,7 +26,7 @@
                VerticalAlignment="Center" Background="LightBlue"/>
     <Grid Grid.Row="3" RowDefinitions="*, Auto" >
       <vid:VideoView Name="Player2" Source="{Binding Source}" Background="Blue"/>
-      <vid:MediaPlayerControls Grid.Row="1" DataContext="{Binding #Player2}" />
+      <vid:MediaPlayerControls Grid.Row="1" MediaPlayer="{Binding #Player2.MediaPlayer}" />
     </Grid>
   </Grid>
 

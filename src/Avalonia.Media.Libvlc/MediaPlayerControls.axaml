@@ -9,21 +9,30 @@
   
 
   <Panel HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="Yellow"  >
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-      <Button Classes="PlayButton" Click="OnPlay" Margin="5" IsEnabled="{Binding MediaPlayer.IsPlaying}" >
-        <ic:SymbolIcon Symbol="Play" FontSize="20" IsFilled="{Binding !MediaPlayer.IsPlaying}"/>
+    <StackPanel x:Name="Controls" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vlc:MediaPlayerViewModel />
+      </Design.DataContext>
+
+      <Button Classes="PlayButton" Command="{Binding Play}" Margin="5" IsEnabled="{Binding !IsPlaying}"  >
+        <ic:SymbolIcon Symbol="Play" FontSize="20" IsFilled="{Binding !IsPlaying}"/>
       </Button>
-      <Button Classes="PauseButton" Click="OnPause" Margin="5" IsEnabled="{Binding MediaPlayer.IsPlaying}" >
-        <ic:SymbolIcon Symbol="Pause" FontSize="20" IsFilled="{Binding MediaPlayer.IsPlaying}"/>
+      <Button Classes="PauseButton" Command="{Binding Pause}" Margin="5"  IsEnabled="{Binding IsPlaying}" >
+        <ic:SymbolIcon Symbol="Pause" FontSize="20" IsFilled="{Binding IsPlaying}"/>
       </Button>
-      <Button Classes="StopButton" Click="OnStop" Margin="5" IsEnabled="{Binding MediaPlayer.IsPlaying}" >
-        <ic:SymbolIcon Symbol="Stop" FontSize="20" IsFilled="{Binding MediaPlayer.IsPlaying}"/>
+      <Button Classes="StopButton" Command="{Binding Stop}" Margin="5"  IsEnabled="{Binding IsPlaying}">
+        <ic:SymbolIcon Symbol="Stop" FontSize="20" IsFilled="{Binding IsPlaying}"/>
       </Button>
-      <Button Classes="MuteButton" Click="OnMute" Margin="5" >
-        <ic:SymbolIcon Symbol="SpeakerMute" IsFilled="{Binding MediaPlayer.Mute}" FontSize="20"/>
+      <Button Classes="MuteButton" Command="{Binding Mute}" Margin="5" IsEnabled="{Binding !IsMuted}">
+        <ic:SymbolIcon Symbol="SpeakerMute" FontSize="20"/>
       </Button>
-      <!--<Slider Classes="Volume" Minimum="0" Maximum="100" Margin="5" VerticalAlignment="Center"
-              Width="100" Value="{Binding MediaPlayer.Volume}" />-->
+      <Button Classes="UnmuteButton" Command="{Binding Unmute}" Margin="5" IsEnabled="{Binding IsMuted}">
+        <ic:SymbolIcon Symbol="SpeakerMute" FontSize="20"/>
+      </Button>
+      <Slider Classes="Volume" Minimum="0" Maximum="100" Margin="5" VerticalAlignment="Center"
+              Width="100" Value="{Binding Volume}" />
     </StackPanel>
   </Panel>
 </UserControl>

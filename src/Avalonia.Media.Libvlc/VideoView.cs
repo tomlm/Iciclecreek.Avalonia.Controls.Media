@@ -26,12 +26,6 @@ namespace Avalonia.Media.Libvlc
         public static readonly DirectProperty<VideoView, string> SourceProperty =
             AvaloniaProperty.RegisterDirect<VideoView, string>(nameof(Source), o => o.Source, (o, v) => o.Source = v);
 
-        public static readonly DirectProperty<VideoView, Maybe<MediaPlayer>> MediaPlayerProperty =
-            AvaloniaProperty.RegisterDirect<VideoView, Maybe<MediaPlayer>>(nameof(MediaPlayer),
-                o => o.MediaPlayer,
-                (o, v) => o.MediaPlayer = v.GetValueOrDefault(),
-                defaultBindingMode: BindingMode.TwoWay);
-
         public static readonly StyledProperty<object> ContentProperty = ContentControl.ContentProperty.AddOwner<VideoView>();
         public static readonly StyledProperty<IBrush> BackgroundProperty = Panel.BackgroundProperty.AddOwner<VideoView>();
 
@@ -116,10 +110,10 @@ namespace Avalonia.Media.Libvlc
 
             if (_floatingContent == null && Content != null)
             {
-                if (Content is Control content)
-                {
-                    content.DataContext = this;
-                }
+                //if (Content is Control content)
+                //{
+                //    content.DataContext = this;
+                //}
 
                 var rect = this.Bounds;
 
