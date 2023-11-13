@@ -9,7 +9,7 @@
 
 
   <Panel x:Name="Controls" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" >
-    <Grid VerticalAlignment="Center" ColumnDefinitions="Auto, Auto, Auto, Auto, *">
+    <Grid VerticalAlignment="Center" ColumnDefinitions="Auto, Auto, Auto, Auto, *, Auto, Auto">
       <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
          to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
@@ -28,14 +28,48 @@
         <ic:SymbolIcon Symbol="Stop" FontSize="20" IsFilled="{Binding IsPlaying}"/>
       </Button>
 
-      <Button Classes="MuteButton" Grid.Column="3" Command="{Binding ToggleMute}" Margin="4" IsEnabled="{Binding IsPlaying}">
-        <ic:SymbolIcon Symbol="SpeakerMute" FontSize="20" IsFilled="{Binding IsMuted}"/>
+      <Button Classes="MuteButton" Grid.Column="3" Command="{Binding ToggleMute}" Margin="4" >
+        <Grid>
+          <ic:SymbolIcon Symbol="Speaker2" FontSize="20" IsFilled="true" IsVisible="{Binding !IsMuted}"/>
+          <ic:SymbolIcon Symbol="SpeakerMute" FontSize="20" IsFilled="false" IsVisible="{Binding IsMuted}"/>
+        </Grid>
       </Button>
 
       <Slider Classes="Time" Grid.Column="4" Minimum="0" Maximum="{Binding Length}" VerticalAlignment="Center"
               Margin="4 0 4 0"
               SmallChange="1000" LargeChange="10000" TickPlacement="None"
               IsEnabled="{Binding IsPlaying}" Value="{Binding Time}" />
+
+      <Button Classes="MoreButton" Grid.Column="5" Margin="4" >
+        <ic:SymbolIcon Symbol="MoreHorizontal" FontSize="20" />
+        <Button.Flyout>
+          <MenuFlyout>
+            <MenuItem Header="Speed">
+              <MenuItem.Icon>
+                <ic:SymbolIcon Symbol="TopSpeed" FontSize="20" />
+              </MenuItem.Icon>
+              <MenuItem Header="2.0x" Command="{Binding SetRate}" CommandParameter="2.0" />
+              <MenuItem Header="1.75x" Command="{Binding SetRate}" CommandParameter="1.75" />
+              <MenuItem Header="1.5x" Command="{Binding SetRate}" CommandParameter="1.5" />
+              <MenuItem Header="1.25x" Command="{Binding SetRate}" CommandParameter="1.25" />
+              <MenuItem Header="1.0x" Command="{Binding SetRate}" CommandParameter="1.0" />
+              <MenuItem Header="0.75x" Command="{Binding SetRate}" CommandParameter="0.75" />
+              <MenuItem Header="0.5x" Command="{Binding SetRate}" CommandParameter="0.5" />
+
+            </MenuItem>
+            <MenuItem Header="Download" Command="{Binding Download}" >
+              <MenuItem.Icon>
+                <ic:SymbolIcon Symbol="ArrowDownload" FontSize="20" />
+              </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="CC" Command="{Binding ToggleCloseCaption}" >
+              <MenuItem.Icon>
+                <ic:SymbolIcon Symbol="ClosedCaption" FontSize="20" />
+              </MenuItem.Icon>
+            </MenuItem>
+          </MenuFlyout>
+        </Button.Flyout>
+      </Button>
     </Grid>
   </Panel>
 </UserControl>

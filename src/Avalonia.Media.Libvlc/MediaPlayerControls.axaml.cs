@@ -1,5 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Data;
+using FluentIcons.Avalonia;
+using FluentIcons.Common;
 using LibVLCSharp.Shared;
 
 namespace Avalonia.Media.Libvlc
@@ -13,9 +15,8 @@ namespace Avalonia.Media.Libvlc
 
         public MediaPlayerControls()
         {
-            // FluentIcons.Common.Symbol
             InitializeComponent();
-
+            // default is to bind to datacontext.MediaPlayer.
             this.Bind(MediaPlayerProperty, new Binding("MediaPlayer", BindingMode.OneWay));
         }
 

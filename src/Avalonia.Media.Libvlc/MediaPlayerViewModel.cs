@@ -1,6 +1,8 @@
-﻿using Avalonia.Metadata;
+﻿using Avalonia.Input.Raw;
+using Avalonia.Metadata;
 using LibVLCSharp.Shared;
 using ReactiveUI;
+using System.Diagnostics;
 
 namespace Avalonia.Media.Libvlc
 {
@@ -26,7 +28,7 @@ namespace Avalonia.Media.Libvlc
                 _mediaPlayer.LengthChanged += (sender, e) => this.RaisePropertyChanged(nameof(Length));
                 _mediaPlayer.Muted += (sender, e) => this.RaisePropertyChanged(nameof(IsMuted));
                 _mediaPlayer.Unmuted += (sender, e) => this.RaisePropertyChanged(nameof(IsMuted));
-                _mediaPlayer.EndReached += (sender, e) => ThreadPool.QueueUserWorkItem( (x) =>
+                _mediaPlayer.EndReached += (sender, e) => ThreadPool.QueueUserWorkItem((x) =>
                 {
                     _mediaPlayer.Stop();
                     _mediaPlayer.Time = 0;
@@ -75,6 +77,16 @@ namespace Avalonia.Media.Libvlc
 
         public void ToggleMute() => _mediaPlayer.Mute = !_mediaPlayer.Mute;
 
+        public void ToggleCloseCaption()
+        {
+            if (_mediaPlayer.Spu != -1)
+                _mediaPlayer.SetSpu(-1);
+            else
+                _mediaPlayer.SetSpu(0);
+        }
+
+        public bool IsCloseCaptioned => _mediaPlayer.Spu == -1;
+
         public bool IsMuted => _mediaPlayer.Mute;
 
         public int Volume { get => _mediaPlayer.Volume; set => _mediaPlayer.Volume = value; }
@@ -88,5 +100,32 @@ namespace Avalonia.Media.Libvlc
         }
 
         public long Length => _mediaPlayer.Length;
+
+        public float Rate
+        {
+            get => _mediaPlayer.Rate;
+            set
+            {
+                var rate = _mediaPlayer.Rate;
+                this.RaiseAndSetIfChanged(ref rate, value);
+                _mediaPlayer.SetRate(value);
+            }
+        }
+
+        public void SetRate(object rate)
+        {
+            if (float.TryParse(rate?.ToString(), out var rateValue))
+            {
+                Rate = rateValue;
+            }
+        }
+
+        public bool CanSetRate(string rate) => true;
+
+
+        public void Download()
+        {
+            Process.Start(new ProcessStartInfo() { FileName = this.MediaPlayer.Media.Mrl, UseShellExecute = true });
+        }
     }
 }
