@@ -13,7 +13,7 @@
     <PackageProjectUrl>https://github.com/tomlm/Iciclecreek.Avalonia.Controls.Media</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/tomlm/Avalonia.Controls.Media/master/icon.png</PackageIconUrl>
     <PackageIcon>icon.png</PackageIcon>
-    <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryType>git</RepositoryType>
     <PackageTags>avalonia</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <None Include="..\..\icon.png" Pack="true" PackagePath="" />
-    <None Include="..\..\readme.md" Pack="true" PackagePath="\" />
+    <None Include="..\..\README.md" Pack="true" PackagePath="" Link="README.md" />
   </ItemGroup>
 
   <ItemGroup>

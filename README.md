@@ -1,4 +1,4 @@
-![Icon](icon.png)
+![Icon](https://raw.github.com/tomlm/Iciclecreek.Avalonia.Controls.Media/main/icon.png)
 # Iciclecreek.Avalonia.Controls.Media
 This control library adds support for LibVLC MediaPlayer for Avalonia Desktop applications.
 
@@ -33,7 +33,7 @@ Add a namespace for the library to your .axaml files:
 
 
 
-![MediaPlayerControls-overlay](https://github.com/tomlm/Iciclecreek.Avalonia.Controls.Media/blob/main/images/MediaPlayerControls-overlay.gif?raw=true)
+![MediaPlayerControls-overlay](https://raw.github.com/tomlm/Iciclecreek.Avalonia.Controls.Media/main/images/MediaPlayerControls-overlay.gif)
 
 
 
@@ -55,10 +55,10 @@ Here is an example which shows how you can create your own command bindings usin
 
 ```xaml 
 <media:VideoView Name="Player" Source={Binding Url} >
-    <StackPanel Orienation="Horizontal" Background="Lavendar">
+    <StackPanel Orientation="Horizontal" Background="Lavender">
         <Button Command="{Binding Play}">Play</Button>
-        <Button Command="{Binding Stop}">Stop</Button>
         <Slider Value="{Binding Time}" Maximum="{Binding Length}" Width="200"/>
+        <Button Command="{Binding Stop}">Stop</Button>
     </StackPanel>
 </media:VideoView>
 ```
@@ -107,4 +107,4 @@ This library contains a fork of the unofficial VideoView with overlay support. T
 
 This is a prebuilt element which looks like this:
 
-![image-20231114101518141](https://github.com/tomlm/Iciclecreek.Avalonia.Controls.Media/blob/main/images/MediaPlayerControls.png?raw=true)
+![image-20231114101518141](https://raw.github.com/tomlm/Iciclecreek.Avalonia.Controls.Media/main/images/MediaPlayerControls.png)
