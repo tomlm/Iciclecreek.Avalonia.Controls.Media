@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:Sample.ViewModels"
-             xmlns:vid="using:Iciclecreek.Avalonia.Controls.Media"
+             xmlns:media="using:Iciclecreek.Avalonia.Controls.Media"
              xmlns:ic="using:FluentIcons.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Sample.Views.MainView"
@@ -20,17 +20,17 @@
     <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="20"
                Text="This video has overlay with default MediaPlayer Controls" />
 
-    <vid:VideoView Grid.Row="1" Grid.Column="0" Source="{Binding Source}" >
-      <vid:MediaPlayerControls Background="AntiqueWhite" />
-    </vid:VideoView>
+    <media:VideoView Grid.Row="1" Grid.Column="0" Source="{Binding Source}" >
+      <media:MediaPlayerControls Background="AntiqueWhite" />
+    </media:VideoView>
 
     <!-- video 2 - MediaPlayerControls externally controlling -->
     <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="20"
                Text="This video has default MediaPlayer Controls external to VideoView" />
     <Grid Grid.Row="3" Grid.Column="0" RowDefinitions="*, Auto" >
-      <vid:VideoView Name="Video2" Source="{Binding Source}" />
+      <media:VideoView Name="Video2" Source="{Binding Source}" />
 
-      <vid:MediaPlayerControls Grid.Row="1" DataContext="{Binding #Video2.MediaPlayerViewModel}" Background="AntiqueWhite" />
+      <media:MediaPlayerControls Grid.Row="1" DataContext="{Binding #Video2.MediaPlayerViewModel}" Background="AntiqueWhite" />
     </Grid>
 
 
@@ -38,7 +38,7 @@
     <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="20"
                Text="This video has overlay with custom MediaPlayer Controls" />
 
-    <vid:VideoView Grid.Row="1" Grid.Column="1" Source="{Binding Source}" >
+    <media:VideoView Grid.Row="1" Grid.Column="1" Source="{Binding Source}" >
       <!-- embedded custom media player controls -->
       <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" RowDefinitions="*, Auto, *" >
         <Grid Grid.Row="1" VerticalAlignment="Center" ColumnDefinitions="Auto, Auto, Auto, Auto, *, Auto, Auto"
@@ -100,7 +100,7 @@
           </Button>
         </Grid>
       </Grid>
-    </vid:VideoView>
+    </media:VideoView>
 
     <!--video 4-->
     <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="20"
@@ -108,7 +108,7 @@
     
     <Grid Grid.Row="3" Grid.Column="1" RowDefinitions="*, Auto" >
       
-      <vid:VideoView Name="Video4" Source="{Binding Source}" />
+      <media:VideoView Name="Video4" Source="{Binding Source}" />
 
       <Grid Grid.Row="1" VerticalAlignment="Center" ColumnDefinitions="Auto, Auto, Auto, Auto, *, Auto, Auto"
             Background="Lavender"
