@@ -17,11 +17,11 @@ This control library adds support for LibVLC MediaPlayer for Avalonia Desktop ap
   * **VideoLan.LibVLC.Mac** 
   * **VideoLAN.LibVLC.Windows** 
 
-# Usage
-
 Add a namespace for the library to your .axaml files:
 
 ```              xmlns:media="using:Iciclecreek.Avalonia.Controls.Media" ```
+
+# Samples
 
 ## Overlay Controls Sample
 
