@@ -1,3 +1,4 @@
+![Icon](icon.png)
 # Iciclecreek.Avalonia.Controls.Media
 This control library adds support for LibVLC MediaPlayer for Avalonia Desktop applications.
 
