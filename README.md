@@ -106,4 +106,4 @@ This library contains a fork of the unofficial VideoView with overlay support. T
 
 This is a prebuilt element which looks like this:
 
-![image-20231114101518141](https://github.com/tomlm/Iciclecreek.Avalonia.Controls.Media/blob/main/images/MediaPlayerControls?raw=true)
+![image-20231114101518141](https://github.com/tomlm/Iciclecreek.Avalonia.Controls.Media/blob/main/images/MediaPlayerControls.png?raw=true)
