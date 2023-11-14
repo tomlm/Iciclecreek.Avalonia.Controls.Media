@@ -13,8 +13,10 @@ using System.Reactive.Subjects;
 using System.Reactive.Linq;
 using System.Reactive.Disposables;
 using vlc = LibVLCSharp.Shared;
+using Avalonia;
+using Avalonia.Media;
 
-namespace Avalonia.Media.Libvlc
+namespace Iciclecreek.Avalonia.Controls.Media
 {
     /// <summary>
     ///     Avalonia VideoView for Windows, Linux and Mac.

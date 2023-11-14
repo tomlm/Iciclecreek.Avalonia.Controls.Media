@@ -4,7 +4,7 @@ using LibVLCSharp.Shared;
 using ReactiveUI;
 using System.Diagnostics;
 
-namespace Avalonia.Media.Libvlc
+namespace Iciclecreek.Avalonia.Controls.Media
 {
     public class MediaPlayerViewModel : ReactiveObject
     {

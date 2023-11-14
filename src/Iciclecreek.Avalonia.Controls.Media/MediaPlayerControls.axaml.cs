@@ -1,10 +1,7 @@
 using Avalonia.Controls;
-using Avalonia.Data;
-using FluentIcons.Avalonia;
-using FluentIcons.Common;
-using LibVLCSharp.Shared;
+using Avalonia.Media;
 
-namespace Avalonia.Media.Libvlc
+namespace Iciclecreek.Avalonia.Controls.Media
 {
 
     public partial class MediaPlayerControls : UserControl

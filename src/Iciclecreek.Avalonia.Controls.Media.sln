@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avalonia.Media.Libvlc", "Avalonia.Media.Libvlc\Avalonia.Media.Libvlc.csproj", "{7F2CEB8C-932F-4984-A2D9-6894DB7CEC1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Iciclecreek.Avalonia.Controls.Media", "Iciclecreek.Avalonia.Controls.Media\Iciclecreek.Avalonia.Controls.Media.csproj", "{7F2CEB8C-932F-4984-A2D9-6894DB7CEC1F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample", "Sample\Sample.csproj", "{0984020E-AACE-48A1-9657-853B29D89694}"
 EndProject
