@@ -1,6 +1,5 @@
 using System.Runtime.InteropServices;
 using Avalonia.Controls;
-using Avalonia.Data;
 using Avalonia.Metadata;
 using Avalonia.Platform;
 using Avalonia.VisualTree;
@@ -14,7 +13,6 @@ using System.Reactive.Subjects;
 using System.Reactive.Linq;
 using System.Reactive.Disposables;
 using vlc = LibVLCSharp.Shared;
-using FluentIcons.Avalonia;
 
 namespace Avalonia.Media.Libvlc
 {
@@ -162,16 +160,12 @@ namespace Avalonia.Media.Libvlc
 
         public void Controls_PointerEnter(object sender, PointerEventArgs e)
         {
-            Debug.WriteLine("POINTER ENTER");
             _floatingContent.Opacity = 0.8;
-
         }
 
         public void Controls_PointerLeave(object sender, PointerEventArgs e)
         {
-            Debug.WriteLine("POINTER LEAVE");
             _floatingContent.Opacity = 0;
-
         }
 
 

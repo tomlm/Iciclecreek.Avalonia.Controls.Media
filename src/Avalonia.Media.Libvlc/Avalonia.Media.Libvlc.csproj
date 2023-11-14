@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -7,13 +7,12 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.0.5" />
-    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.5" />
-    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.0.5" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.5" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.5" />
     <PackageReference Include="CSharpFunctionalExtensions" Version="2.40.3" />
-    <PackageReference Include="FluentIcons.Avalonia" Version="1.1.222" />
+    <PackageReference Include="FluentIcons.Avalonia" Version="1.1.222">
+      <TreatAsUsed>true</TreatAsUsed>
+    </PackageReference>
     <PackageReference Include="LibVLCSharp" Version="3.8.2" />
   </ItemGroup>
   <ItemGroup>
