@@ -32,7 +32,7 @@ Add a namespace for the library to your .axaml files:
 
 
 
-![MediaPlayerControls-overlay](images/MediaPlayerControls-overlay.gif)
+![MediaPlayerControls-overlay](https://github.com/tomlm/Iciclecreek.Avalonia.Controls.Media/raw/main/images/MediaPlayerControls-overlay.gif?raw=true)
 
 
 
@@ -106,4 +106,4 @@ This library contains a fork of the unofficial VideoView with overlay support. T
 
 This is a prebuilt element which looks like this:
 
-![image-20231114101518141](images/MediaPlayerControls)
+![image-20231114101518141](https://github.com/tomlm/Iciclecreek.Avalonia.Controls.Media/raw/main/images/MediaPlayerControls.png?raw=true)
