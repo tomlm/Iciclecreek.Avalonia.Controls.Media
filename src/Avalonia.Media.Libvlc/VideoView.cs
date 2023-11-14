@@ -40,6 +40,7 @@ namespace Avalonia.Media.Libvlc
 
         private string _source;
         private LibVLC? _libVLC;
+        private MediaPlayerViewModel? _mediaPlayerViewModel;
 
         public VideoView()
         {
@@ -74,8 +75,15 @@ namespace Avalonia.Media.Libvlc
         public MediaPlayer MediaPlayer
         {
             get => mediaPlayers.Value.GetValueOrDefault();
-            set => mediaPlayers.OnNext(value);
+            set
+            {
+                mediaPlayers.OnNext(value);
+                _mediaPlayerViewModel = new MediaPlayerViewModel() { MediaPlayer = value };
+            }
         }
+
+        [DependsOn(nameof(MediaPlayer))]
+        public MediaPlayerViewModel MediaPlayerViewModel => _mediaPlayerViewModel;
 
         public string Source
         {
@@ -112,7 +120,7 @@ namespace Avalonia.Media.Libvlc
 
                 _floatingContent = new Window()
                 {
-                    DataContext = this,
+                    DataContext = this.MediaPlayerViewModel,
                     SystemDecorations = SystemDecorations.None,
 
                     Background = Brushes.Transparent,
@@ -153,12 +161,12 @@ namespace Avalonia.Media.Libvlc
             ShowNativeOverlay(IsEffectivelyVisible);
         }
 
-        public void Controls_PointerEnter(object sender, PointerEventArgs e)
+        public virtual void Controls_PointerEnter(object sender, PointerEventArgs e)
         {
             _floatingContent.Opacity = 0.8;
         }
 
-        public void Controls_PointerLeave(object sender, PointerEventArgs e)
+        public virtual void Controls_PointerLeave(object sender, PointerEventArgs e)
         {
             _floatingContent.Opacity = 0;
         }

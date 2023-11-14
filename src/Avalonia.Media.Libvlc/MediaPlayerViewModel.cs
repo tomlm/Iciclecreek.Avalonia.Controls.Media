@@ -1,4 +1,4 @@
-﻿using Avalonia.Input.Raw;
+﻿using Avalonia.Controls;
 using Avalonia.Metadata;
 using LibVLCSharp.Shared;
 using ReactiveUI;
@@ -12,6 +12,10 @@ namespace Avalonia.Media.Libvlc
 
         public MediaPlayerViewModel()
         {
+            if (Design.IsDesignMode)
+            {
+                _mediaPlayer = new MediaPlayer(new LibVLCSharp.Shared.Media(null, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"));
+            }
         }
 
         public MediaPlayer MediaPlayer

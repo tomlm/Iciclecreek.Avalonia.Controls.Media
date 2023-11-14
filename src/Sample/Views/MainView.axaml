@@ -4,32 +4,172 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:Sample.ViewModels"
              xmlns:vid="using:Avalonia.Media.Libvlc"
+             xmlns:ic="using:FluentIcons.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Sample.Views.MainView"
              x:DataType="vm:MainViewModel">
+  
   <Design.DataContext>
     <!-- This only sets the DataContext for the previewer in an IDE,
          to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
     <vm:MainViewModel />
   </Design.DataContext>
 
-  <Grid RowDefinitions="Auto, *, Auto, *">
+  <Grid RowDefinitions="Auto, *, Auto, *" ColumnDefinitions="*, *" Background="White">
+    <!-- Video 1 - MediaPlayerControls as overlay -->
+    <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="20"
+               Text="This video has overlay with default MediaPlayer Controls" />
 
-    <TextBlock Text="This video has overlay with MediaPlayer Controls" HorizontalAlignment="Center" VerticalAlignment="Center" 
-               Background="LightBlue"/>
-
-    <vid:VideoView Grid.Row="1" Source="{Binding Source}" >
-      <vid:MediaPlayerControls Background="AntiqueWhite" Margin="0" Padding="0"/>
+    <vid:VideoView Grid.Row="1" Grid.Column="0" Source="{Binding Source}" >
+      <vid:MediaPlayerControls Background="AntiqueWhite" />
     </vid:VideoView>
 
-    <TextBlock Grid.Row="2" Text="This video MediaPlayer Controls external to VideoView" HorizontalAlignment="Center" 
-               VerticalAlignment="Center" Background="LightBlue"/>
-    <Grid Grid.Row="3" RowDefinitions="*, Auto" >
-      <vid:VideoView Name="Player2" Source="{Binding Source}" />
-      <vid:MediaPlayerControls Grid.Row="1" MediaPlayer="{Binding #Player2.MediaPlayer}" Background="AntiqueWhite"
-                               Margin="0" Padding="0"/>
+    <!-- video 2 - MediaPlayerControls externally controlling -->
+    <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="20"
+               Text="This video has default MediaPlayer Controls external to VideoView" />
+    <Grid Grid.Row="3" Grid.Column="0" RowDefinitions="*, Auto" >
+      <vid:VideoView Name="Video2" Source="{Binding Source}" />
+
+      <vid:MediaPlayerControls Grid.Row="1" DataContext="{Binding #Video2.MediaPlayerViewModel}" Background="AntiqueWhite" />
+    </Grid>
+
+
+    <!-- video 3-->
+    <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="20"
+               Text="This video has overlay with custom MediaPlayer Controls" />
+
+    <vid:VideoView Grid.Row="1" Grid.Column="1" Source="{Binding Source}" >
+      <!-- embedded custom media player controls -->
+      <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" RowDefinitions="*, Auto, *" >
+        <Grid Grid.Row="1" VerticalAlignment="Center" ColumnDefinitions="Auto, Auto, Auto, Auto, *, Auto, Auto"
+              Background="Lavender">
+
+          <Button Classes="PlayButton" Grid.Column="0" Command="{Binding Play}" Margin="4" IsEnabled="{Binding !IsPlaying}"  >
+            <ic:SymbolIcon Symbol="Play" FontSize="20" IsFilled="{Binding !IsPlaying}"/>
+          </Button>
+
+          <Button Classes="PauseButton" Grid.Column="1" Command="{Binding Pause}" Margin="4"  IsEnabled="{Binding IsPlaying}" >
+            <ic:SymbolIcon Symbol="Pause" FontSize="20" IsFilled="{Binding IsPlaying}"/>
+          </Button>
+
+          <Button Classes="StopButton" Grid.Column="2" Command="{Binding Stop}" Margin="4"  IsEnabled="{Binding IsPlaying}">
+            <ic:SymbolIcon Symbol="Stop" FontSize="20" IsFilled="{Binding IsPlaying}"/>
+          </Button>
+
+          <Button Classes="MuteButton" Grid.Column="3" Command="{Binding ToggleMute}" Margin="4" >
+            <Grid>
+              <ic:SymbolIcon Symbol="Speaker2" FontSize="20" IsFilled="true" IsVisible="{Binding !IsMuted}"/>
+              <ic:SymbolIcon Symbol="SpeakerMute" FontSize="20" IsFilled="false" IsVisible="{Binding IsMuted}"/>
+            </Grid>
+          </Button>
+
+          <Slider Classes="Time" Grid.Column="4" Minimum="0" Maximum="{Binding Length}" VerticalAlignment="Center"
+                  Margin="4 0 4 0"
+                  SmallChange="1000" LargeChange="10000" TickPlacement="None"
+                  IsEnabled="{Binding IsPlaying}" Value="{Binding Time}" />
+
+          <Button Classes="MoreButton" Grid.Column="5" Margin="4" >
+            <ic:SymbolIcon Symbol="MoreHorizontal" FontSize="20" />
+            <Button.Flyout>
+              <MenuFlyout>
+                <MenuItem Header="Speed">
+                  <MenuItem.Icon>
+                    <ic:SymbolIcon Symbol="TopSpeed" FontSize="20" />
+                  </MenuItem.Icon>
+                  <MenuItem Header="2.0x" Command="{Binding SetRate}" CommandParameter="2.0" />
+                  <MenuItem Header="1.75x" Command="{Binding SetRate}" CommandParameter="1.75" />
+                  <MenuItem Header="1.5x" Command="{Binding SetRate}" CommandParameter="1.5" />
+                  <MenuItem Header="1.25x" Command="{Binding SetRate}" CommandParameter="1.25" />
+                  <MenuItem Header="1.0x" Command="{Binding SetRate}" CommandParameter="1.0" />
+                  <MenuItem Header="0.75x" Command="{Binding SetRate}" CommandParameter="0.75" />
+                  <MenuItem Header="0.5x" Command="{Binding SetRate}" CommandParameter="0.5" />
+
+                </MenuItem>
+                <MenuItem Header="Download" Command="{Binding Download}" >
+                  <MenuItem.Icon>
+                    <ic:SymbolIcon Symbol="ArrowDownload" FontSize="20" />
+                  </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="CC" Command="{Binding ToggleCloseCaption}" >
+                  <MenuItem.Icon>
+                    <ic:SymbolIcon Symbol="ClosedCaption" FontSize="20" />
+                  </MenuItem.Icon>
+                </MenuItem>
+              </MenuFlyout>
+            </Button.Flyout>
+          </Button>
+        </Grid>
+      </Grid>
+    </vid:VideoView>
+
+    <!--video 4-->
+    <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="20"
+               Text="This custom MediaPlayer Controls external to VideoView" />
+    
+    <Grid Grid.Row="3" Grid.Column="1" RowDefinitions="*, Auto" >
+      
+      <vid:VideoView Name="Video4" Source="{Binding Source}" />
+
+      <Grid Grid.Row="1" VerticalAlignment="Center" ColumnDefinitions="Auto, Auto, Auto, Auto, *, Auto, Auto"
+            Background="Lavender"
+            DataContext="{Binding #Video4.MediaPlayerViewModel}">
+
+        <Button Classes="PlayButton" Grid.Column="0" Command="{Binding Play}" Margin="4" IsEnabled="{Binding !IsPlaying}"  >
+          <ic:SymbolIcon Symbol="Play" FontSize="20" IsFilled="{Binding !IsPlaying}"/>
+        </Button>
+
+        <Button Classes="PauseButton" Grid.Column="1" Command="{Binding Pause}" Margin="4"  IsEnabled="{Binding IsPlaying}" >
+          <ic:SymbolIcon Symbol="Pause" FontSize="20" IsFilled="{Binding IsPlaying}"/>
+        </Button>
+
+        <Button Classes="StopButton" Grid.Column="2" Command="{Binding Stop}" Margin="4"  IsEnabled="{Binding IsPlaying}">
+          <ic:SymbolIcon Symbol="Stop" FontSize="20" IsFilled="{Binding IsPlaying}"/>
+        </Button>
+
+        <Button Classes="MuteButton" Grid.Column="3" Command="{Binding ToggleMute}" Margin="4" >
+          <Grid>
+            <ic:SymbolIcon Symbol="Speaker2" FontSize="20" IsFilled="true" IsVisible="{Binding !IsMuted}"/>
+            <ic:SymbolIcon Symbol="SpeakerMute" FontSize="20" IsFilled="false" IsVisible="{Binding IsMuted}"/>
+          </Grid>
+        </Button>
+
+        <Slider Classes="Time" Grid.Column="4" Minimum="0" Maximum="{Binding Length}" VerticalAlignment="Center"
+                Margin="4 0 4 0"
+                SmallChange="1000" LargeChange="10000" TickPlacement="None"
+                IsEnabled="{Binding IsPlaying}" Value="{Binding Time}" />
+
+        <Button Classes="MoreButton" Grid.Column="5" Margin="4" >
+          <ic:SymbolIcon Symbol="MoreHorizontal" FontSize="20" />
+          <Button.Flyout>
+            <MenuFlyout>
+              <MenuItem Header="Speed">
+                <MenuItem.Icon>
+                  <ic:SymbolIcon Symbol="TopSpeed" FontSize="20" />
+                </MenuItem.Icon>
+                <MenuItem Header="2.0x" Command="{Binding SetRate}" CommandParameter="2.0" />
+                <MenuItem Header="1.75x" Command="{Binding SetRate}" CommandParameter="1.75" />
+                <MenuItem Header="1.5x" Command="{Binding SetRate}" CommandParameter="1.5" />
+                <MenuItem Header="1.25x" Command="{Binding SetRate}" CommandParameter="1.25" />
+                <MenuItem Header="1.0x" Command="{Binding SetRate}" CommandParameter="1.0" />
+                <MenuItem Header="0.75x" Command="{Binding SetRate}" CommandParameter="0.75" />
+                <MenuItem Header="0.5x" Command="{Binding SetRate}" CommandParameter="0.5" />
+
+              </MenuItem>
+              <MenuItem Header="Download" Command="{Binding Download}" >
+                <MenuItem.Icon>
+                  <ic:SymbolIcon Symbol="ArrowDownload" FontSize="20" />
+                </MenuItem.Icon>
+              </MenuItem>
+              <MenuItem Header="CC" Command="{Binding ToggleCloseCaption}" >
+                <MenuItem.Icon>
+                  <ic:SymbolIcon Symbol="ClosedCaption" FontSize="20" />
+                </MenuItem.Icon>
+              </MenuItem>
+            </MenuFlyout>
+          </Button.Flyout>
+        </Button>
+      </Grid>
     </Grid>
   </Grid>
-
 
 </UserControl>
