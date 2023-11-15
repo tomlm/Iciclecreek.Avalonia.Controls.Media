@@ -62,7 +62,10 @@ namespace Iciclecreek.Avalonia.Controls.Media
             if (!Design.IsDesignMode)
             {
                 Core.Initialize();
-                _libVLC = new LibVLC(enableDebugLogs: true, "--directx-use-sysmem", "--network-caching=4000");
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                    _libVLC = new LibVLC(enableDebugLogs: true, "--directx-use-sysmem", "--network-caching=4000");
+                else 
+                    _libVLC = new LibVLC(enableDebugLogs: true, "--network-caching=4000");
                 _libVLC.Log += VlcLogger_Event;
 
                 MediaPlayer = new MediaPlayer(_libVLC);
@@ -132,8 +135,7 @@ namespace Iciclecreek.Avalonia.Controls.Media
 
                     ShowInTaskbar = false,
 
-                    //Topmost=true,
-                    ZIndex = Int32.MaxValue,
+                    Topmost=true,
 
                     Opacity = 0,
 
