@@ -17,13 +17,19 @@
 
   <Grid RowDefinitions="Auto, *, Auto, *" ColumnDefinitions="*, *" Background="White">
     <!-- Video 1 - MediaPlayerControls as overlay -->
-    <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="20"
+    <StackPanel Orientation="Horizontal">
+      <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="20"
                Text="This video has overlay with default MediaPlayer Controls" />
+      <Button Click="Detach_Click">Detach</Button>
+      <Button Click="Visibility_Click">Toggle Visibility</Button>
+    </StackPanel>
 
-    <media:VideoView Grid.Row="1" Grid.Column="0" Source="{Binding Source}" >
-      <media:MediaPlayerControls Background="AntiqueWhite" />
-    </media:VideoView>
-
+    <Grid Grid.Row="1" x:Name="Video1Grid">
+      <media:VideoView Grid.Row="1" Grid.Column="0" x:Name="Video1" Source="{Binding Source}" >
+        <media:MediaPlayerControls Background="AntiqueWhite" />
+      </media:VideoView>
+    </Grid>
+    
     <!-- video 2 - MediaPlayerControls externally controlling -->
     <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="20"
                Text="This video has default MediaPlayer Controls external to VideoView" />

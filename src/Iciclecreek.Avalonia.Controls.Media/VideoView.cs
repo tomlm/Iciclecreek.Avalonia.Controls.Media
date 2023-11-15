@@ -64,7 +64,7 @@ namespace Iciclecreek.Avalonia.Controls.Media
                 Core.Initialize();
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                     _libVLC = new LibVLC(enableDebugLogs: true, "--directx-use-sysmem", "--network-caching=4000");
-                else 
+                else
                     _libVLC = new LibVLC(enableDebugLogs: true, "--network-caching=4000");
                 _libVLC.Log += VlcLogger_Event;
 
@@ -135,11 +135,16 @@ namespace Iciclecreek.Avalonia.Controls.Media
 
                     ShowInTaskbar = false,
 
-                    Topmost=true,
+                    ZIndex = 1000,
 
                     Opacity = 0,
-
                 };
+
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    // BUG, this will show even if window is not active.
+                    _floatingContent.Topmost = true;
+                }
 
                 _floatingContent.TransparencyLevelHint = new List<WindowTransparencyLevel>()
                 {
@@ -149,14 +154,12 @@ namespace Iciclecreek.Avalonia.Controls.Media
                 _floatingContent.PointerEntered += Controls_PointerEnter;
                 _floatingContent.PointerExited += Controls_PointerLeave;
 
-
                 _disposables = new CompositeDisposable()
                 {
                     _floatingContent.Bind(Window.ContentProperty, this.GetObservable(ContentProperty)),
                     this.GetObservable(ContentProperty).Skip(1).Subscribe(_=> UpdateOverlayPosition()),
                     this.GetObservable(BoundsProperty).Skip(1).Subscribe(_ => UpdateOverlayPosition()),
-                    Observable.FromEventPattern(VisualRoot, nameof(Window.PositionChanged))
-                    .Subscribe(_ => UpdateOverlayPosition())
+                    Observable.FromEventPattern(VisualRoot, nameof(Window.PositionChanged)).Subscribe(_ => UpdateOverlayPosition())
                 };
 
 
@@ -203,7 +206,10 @@ namespace Iciclecreek.Avalonia.Controls.Media
             if (show && _isAttached)
                 _floatingContent.Show(VisualRoot as Window);
             else
+            {
                 _floatingContent.Hide();
+                this.MediaPlayer.Pause();
+            }
         }
 
         private void UpdateOverlayPosition()
@@ -298,6 +304,8 @@ namespace Iciclecreek.Avalonia.Controls.Media
             ShowNativeOverlay(false);
 
             _isAttached = false;
+
+            this.MediaPlayer.Pause();
         }
 
         protected override void OnDetachedFromLogicalTree(LogicalTreeAttachmentEventArgs e)
@@ -308,6 +316,8 @@ namespace Iciclecreek.Avalonia.Controls.Media
             _disposables = null;
             _floatingContent?.Close();
             _floatingContent = null;
+
+            this.MediaPlayer.Pause();
         }
     }
 
