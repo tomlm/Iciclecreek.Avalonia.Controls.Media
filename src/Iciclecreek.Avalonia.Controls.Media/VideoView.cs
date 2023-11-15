@@ -203,14 +203,7 @@ namespace Iciclecreek.Avalonia.Controls.Media
             {
                 // linux has timing issue with showing overlay window and zindex. 
                 // Running it off a background thread seems to fix it.  Strange.
-                var _ = Task.Run(async () =>
-                {
-                    await Task.Delay(0);
-                    Dispatcher.UIThread.Invoke(() =>
-                    {
-                        _floatingContent.Show(VisualRoot as Window);
-                    });
-                });
+                Dispatcher.UIThread.InvokeAsync(() => _floatingContent.Show(VisualRoot as Window));
             }
             else
             {
