@@ -124,8 +124,7 @@ namespace Iciclecreek.Avalonia.Controls.Media
             }
         }
 
-        public bool CanSetRate(string rate) => true;
-
+        public bool CanSetRate(object rate) => true;
 
         public void Download()
         {
