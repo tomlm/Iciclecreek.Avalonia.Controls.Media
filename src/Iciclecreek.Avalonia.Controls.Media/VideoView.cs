@@ -15,6 +15,7 @@ using System.Reactive.Disposables;
 using vlc = LibVLCSharp.Shared;
 using Avalonia;
 using Avalonia.Media;
+using Avalonia.Threading;
 
 namespace Iciclecreek.Avalonia.Controls.Media
 {
@@ -140,11 +141,6 @@ namespace Iciclecreek.Avalonia.Controls.Media
                     Opacity = 0,
                 };
 
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-                {
-                    // BUG, this will show even if window is not active.
-                    _floatingContent.Topmost = true;
-                }
 
                 _floatingContent.TransparencyLevelHint = new List<WindowTransparencyLevel>()
                 {
@@ -204,7 +200,18 @@ namespace Iciclecreek.Avalonia.Controls.Media
                 return;
 
             if (show && _isAttached)
-                _floatingContent.Show(VisualRoot as Window);
+            {
+                // linux has timing issue with showing overlay window and zindex. 
+                // Running it off a background thread seems to fix it.  Strange.
+                var _ = Task.Run(async () =>
+                {
+                    await Task.Delay(0);
+                    Dispatcher.UIThread.Invoke(() =>
+                    {
+                        _floatingContent.Show(VisualRoot as Window);
+                    });
+                });
+            }
             else
             {
                 _floatingContent.Hide();
