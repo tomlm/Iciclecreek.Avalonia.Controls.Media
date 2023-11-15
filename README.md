@@ -32,9 +32,8 @@ Add a namespace for the library to your .axaml files:
 ```
 
 
-
-![MediaPlayerControls-overlay](https://raw.github.com/tomlm/Iciclecreek.Avalonia.Controls.Media/main/images/MediaPlayerControls-overlay.gif)
-
+![MediaPlayerControls-overlay.gif](https://raw.github.com/tomlm/Iciclecreek.Avalonia.Controls.Media/main/images/MediaPlayerControls-overlay.gif)
+![MediaPlayerControls-overlay.gif](images/MediaPlayerControls-overlay.gif)
 
 
 ## External Controls Sample
