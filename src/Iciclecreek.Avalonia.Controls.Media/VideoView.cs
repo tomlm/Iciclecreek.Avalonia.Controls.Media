@@ -16,6 +16,7 @@ using vlc = LibVLCSharp.Shared;
 using Avalonia;
 using Avalonia.Media;
 using Avalonia.Threading;
+using Avalonia.Controls.Utils;
 
 namespace Iciclecreek.Avalonia.Controls.Media
 {
@@ -152,9 +153,15 @@ namespace Iciclecreek.Avalonia.Controls.Media
 
                 _disposables = new CompositeDisposable()
                 {
+                    // bind the contentproperty to the floating window
                     _floatingContent.Bind(Window.ContentProperty, this.GetObservable(ContentProperty)),
+                    // if content changes we need to update overlay
                     this.GetObservable(ContentProperty).Skip(1).Subscribe(_=> UpdateOverlayPosition()),
+                    // if video size changes we need to update overlay
                     this.GetObservable(BoundsProperty).Skip(1).Subscribe(_ => UpdateOverlayPosition()),
+                    // if window changes we need to update overlay (as the location of the overlay may need to be updated based on new layout)
+                    Observable.FromEventPattern(VisualRoot, nameof(Window.SizeChanged)).Subscribe(_ => UpdateOverlayPosition()),
+                    // if window position changes we need to update overlay (as the window has moved)
                     Observable.FromEventPattern(VisualRoot, nameof(Window.PositionChanged)).Subscribe(_ => UpdateOverlayPosition())
                 };
 
@@ -220,6 +227,8 @@ namespace Iciclecreek.Avalonia.Controls.Media
             bool forceSetWidth = false, forceSetHeight = false;
 
             var topLeft = new Point();
+            //var window = this.FindAncestorOfType<Window>();
+            //var topLeft = (Point)this.TranslatePoint(new Point(0, 0), window);
 
             var child = _floatingContent.Presenter?.Child;
 
