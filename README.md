@@ -66,8 +66,9 @@ Here is an example which shows how you can create your own command bindings usin
 
 ## MediaPlayerViewModel class
 
-The main class driving this is a view model which is set up to support Commands and Property notification to make it easy to data bind UI to the state of the **MediaPlayer** in the **VideoView** control.  All of the Commands appropriate implement CanXXX() so that they are enabled/disabled as appropriate.
-
+The main class driving this is a view model which is set up to support Commands and Property notification to make it easy 
+to data bind UI to the state of the **MediaPlayer** in the **VideoView** control.  All of the Commands 
+implement CanXXX() so that they are enabled/disabled automatically when bound as a Command.
 
 
 | Command             | Parameters | Description                                                  |
@@ -96,10 +97,13 @@ The **MediaPlayerViewModel** also exposes the state of the **MediaPlayer** so yo
 
 ### VideoView element
 
-This library contains a fork of the unofficial VideoView with overlay support. The changes are
+This library contains a fork of the **unofficial VideoView** with overlay support. The changes are
 
 * Adds a **MediaPlayerViewModel** property 
 * Sets **DataContext** for child overlay content to **MediaPlayerViewModel** 
+* Fixes overlay bugs on linux
+* Fixes positioning bugs for overlay
+* Cleaned up (removed static this pointers)
 
 
 ### MediaPlayerControls Element
