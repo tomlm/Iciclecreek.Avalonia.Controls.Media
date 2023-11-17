@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Iciclecreek.Avalonia.Controls.Media\Iciclecreek.Avalonia.Controls.Media.csproj" />
     <ProjectReference Include="..\Sample\Sample.csproj" />
   </ItemGroup>
 </Project>

@@ -3,6 +3,7 @@ using Avalonia.Metadata;
 using LibVLCSharp.Shared;
 using ReactiveUI;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace Iciclecreek.Avalonia.Controls.Media
 {
@@ -14,7 +15,11 @@ namespace Iciclecreek.Avalonia.Controls.Media
         {
             if (Design.IsDesignMode)
             {
-                _mediaPlayer = new MediaPlayer(new LibVLCSharp.Shared.Media(null, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"));
+                Core.Initialize();
+
+                LibVLC libVLC = new LibVLC(enableDebugLogs: true, "--network-caching=4000");
+
+                MediaPlayer = new MediaPlayer(new LibVLCSharp.Shared.Media(libVLC, "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"));
             }
         }
 
